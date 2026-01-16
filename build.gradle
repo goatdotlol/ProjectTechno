@@ -6,8 +6,9 @@ plugins {
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
-group = "com.techno.client"
-version = "1.0.0"
+archivesBaseName = project.archives_base_name
+version = project.mod_version
+group = project.maven_group
 
 repositories {
     mavenCentral()
@@ -16,41 +17,39 @@ repositories {
 }
 
 dependencies {
-    // Minecraft 1.8.9
-    minecraft "com.mojang:minecraft:1.8.9"
-    mappings "net.legacyfabric:yarn:1.8.9+build.576:v2" // Legacy Fabric Mappings
+    // To supply Minecraft on the classpath, we use the standard "minecraft" dependency
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings "net.legacyfabric:yarn:${project.yarn_mappings}"
+    
+    // We add the loader to ensure the environment is set up correctly by Loom (Intermediary/etc)
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
-    // Mixin & LaunchWrapper
+    // Mixin & LaunchWrapper (Compile against them)
+    // We use "implementation" (or compileOnly) because we are a Tweaker, 
+    // but typically we list them to compile against.
     implementation("org.spongepowered:mixin:0.8.5") {
         exclude module: 'launchwrapper'
         exclude module: 'guava'
     }
     implementation "net.minecraft:launchwrapper:1.12"
-
-    // Annotation processor for Mixin
+    
     annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
 }
 
-loom {
-    // Disable Fabric Mod generated files since this is a Tweaker
-    runConfigs.configureEach {
-        ideConfigGenerated = true
+processResources {
+    inputs.property "version", project.version
+
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
     }
 }
 
-// Ensure the final jar is named correctly for the launcher
-base {
-    archivesName = "ProjectTechno"
-}
-
-
-// Remap the standard jar
+// Ensure the remapped jar is named appropriately
 remapJar {
-    inputFile = jar.archiveFile
-    archiveClassifier = '' // Main artifact
+    archiveClassifier = ""
 }
 
-// Manifest for the Tweaker
+// Tweaker Manifest
 jar {
     manifest {
         attributes(
@@ -61,7 +60,7 @@ jar {
     }
 }
 
-// Task to zip up the deliverables for the user
+// Distribution Task
 task distribution(type: Zip) {
     dependsOn remapJar
     from(remapJar) {
