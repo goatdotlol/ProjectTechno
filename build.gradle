@@ -21,11 +21,14 @@ dependencies {
     mappings "net.legacyfabric:yarn:1.8.9+build.576:v2" // Legacy Fabric Mappings
 
     // Mixin & LaunchWrapper
-    implementation "org.spongepowered:mixin:0.7.11-SNAPSHOT"
+    implementation("org.spongepowered:mixin:0.8.5") {
+        exclude module: 'launchwrapper'
+        exclude module: 'guava'
+    }
     implementation "net.minecraft:launchwrapper:1.12"
 
     // Annotation processor for Mixin
-    annotationProcessor "org.spongepowered:mixin:0.7.11-SNAPSHOT"
+    annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
 }
 
 loom {
