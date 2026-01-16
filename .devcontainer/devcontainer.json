@@ -1,0 +1,19 @@
+{
+    "name": "Project Techno Dev Envrionment",
+    "image": "mcr.microsoft.com/devcontainers/java:17",
+    "features": {
+        "ghcr.io/devcontainers/features/java:1": {
+            "version": "17",
+            "jdkDistro": "ms",
+            "gradleVersion": "latest"
+        }
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "vscjava.vscode-java-pack",
+                "gabrielbb.vscode-lombok"
+            ]
+        }
+    }
+}

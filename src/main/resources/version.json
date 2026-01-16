@@ -1,0 +1,21 @@
+{
+    "id": "ProjectTechno",
+    "inheritsFrom": "1.8.9",
+    "time": "2026-01-01T00:00:00+00:00",
+    "releaseTime": "2026-01-01T00:00:00+00:00",
+    "type": "release",
+    "mainClass": "net.minecraft.launchwrapper.Launch",
+    "libraries": [
+        {
+            "name": "net.minecraft:launchwrapper:1.12"
+        },
+        {
+            "name": "org.spongepowered:mixin:0.7.11-SNAPSHOT",
+            "url": "https://repo.spongepowered.org/maven/"
+        },
+        {
+            "name": "ProjectTechno:ProjectTechno:1.0.0"
+        }
+    ],
+    "minecraftArguments": "--username ${auth_player_name} --version ${version_name} --gameDir ${game_directory} --assetsDir ${assets_root} --assetIndex ${assets_index_name} --uuid ${auth_uuid} --accessToken ${auth_access_token} --userProperties ${user_properties} --userType ${user_type} --tweakClass com.techno.client.TechnoTweaker"
+}
