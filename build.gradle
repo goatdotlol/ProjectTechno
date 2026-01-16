@@ -12,13 +12,14 @@ version = "1.0.0"
 
 repositories {
     mavenCentral()
+    maven { url "https://maven.legacyfabric.net/" }
     maven { url "https://repo.spongepowered.org/maven" }
 }
 
 dependencies {
     // Minecraft 1.8.9
     minecraft "com.mojang:minecraft:1.8.9"
-    mappings "net.fabricmc:yarn:1.8.9+build.306:v2" // Using Yarn for 1.8.9, widely available
+    mappings "net.legacyfabric:yarn:1.8.9+build.576:v2" // Legacy Fabric Mappings
 
     // Mixin & LaunchWrapper
     implementation "org.spongepowered:mixin:0.7.11-SNAPSHOT"
